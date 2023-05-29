@@ -1,4 +1,6 @@
 import Matrix from "./game-table-matrix";
+import Blocks from '../components/game-block';
+import {useRef, useEffect} from 'react';
 const GameTable = ({matrix})=>{
     const matrixLoop = ()=>{
         let matrixArray = [];
@@ -7,6 +9,9 @@ const GameTable = ({matrix})=>{
         }
         return matrixArray;
     }
+
+        
+
     return <li>
         <ul>
             {matrixLoop()}

@@ -12,3 +12,6 @@ ul,ol,dl {
     list-style-type: none;
 }
 
+.square{
+    background-color: blueviolet;
+}
