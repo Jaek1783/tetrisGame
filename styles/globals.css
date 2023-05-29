@@ -1,0 +1,17 @@
+* {
+    padding:0;
+    margin:0;
+}
+.App{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+ul,ol,dl {
+    list-style-type: none;
+}
+
+.square{
+    background-color: blueviolet;
+}
