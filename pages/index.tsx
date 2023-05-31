@@ -1,71 +1,38 @@
-import {useState, useRef, useEffect} from 'react';
-import GameTable from '../components/game-table';
-import Blocks from '../components/game-block';
+
+import {useRef, useState} from 'react';
 import styles from 'styled-components';
+import Blocks from '../components/game-blocks';
+
+// export interface MovingItemType {
+//     type:string,
+//     top:number,
+//     left:number,
+//     direction:number
+// }
 const HomePage = ()=>{
-    const [num, setNum] = useState(20);
-    const [matrix, setMatrix] = useState(10);
-    const tableRef = useRef(null);
-    const tableLoop = ()=>{
-        let tableArray = [];
-        for(let i = 0; i < num; i++){
-            tableArray.push(<GameTable key={i} matrix={matrix}/>);
-        }
-        return tableArray;
-    }
-    const movingItem = {
-        type : "square",
-        direction: 0,
+
+    const [num, setNum] = useState<number>(20);
+    const [matrix, setMatrix] = useState<number>(10);
+    
+    const MovingItem = {
+        type:'tree',
         top:0,
-        left:0
+        left:0,
+        direction:0,
     }
-    let typeMovingItem = {...movingItem};
-useEffect(()=>{
-    const renderBlocks = ()=>{
-        const {type, direction, top, left} = typeMovingItem;
-
-        Blocks[type][direction].forEach(block => {
-            const x = block[0]+left;
-            const y = block[1]+top;
-
-            const target = tableRef.current.children[y].children[0].children[x];
-
-            target.classList.add(type);
-        });
-    }
-    return renderBlocks();
-},[]);
     return <div className='App'>
-        <h1>Tetris</h1>
-        <div className="score">0</div>
-        <PlayGroundStyle >
-            <ul ref={tableRef}>
-                {tableLoop()}
-            </ul>
-        </PlayGroundStyle>
+        <div className='boardTable'>
+            <PlayGroundStyle>
+                    <Blocks num={num} matrix={matrix} MovingItem={MovingItem}/>
+            </PlayGroundStyle>
+        </div>
     </div>
 }
 
 export default HomePage;
 
 const PlayGroundStyle = styles.div`
-ul {
-    border: 1px solid #333;
-    width:250px;
-}
+border : 1px solid #000;
+padding:.5rem;
 
-ul > li {
-    width:100%;
-    height:25px;
-}
-
-ul > li > ul {
-    display: flex;
-}
-
-ul >li > ul > li {
-    width:25px;
-    height:25px;
-    outline: 1px solid #ccc;
-}
 `;

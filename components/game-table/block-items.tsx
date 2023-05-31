@@ -1,4 +1,4 @@
-const Blocks = {
+const BlockItems = {
     square:[
       [[0,0],[0,1],[1,0],[1,1]],
       [[0,0],[0,1],[1,0],[1,1]],
@@ -37,4 +37,4 @@ const Blocks = {
     ],
   }
   
-  export default Blocks;
+  export default BlockItems;

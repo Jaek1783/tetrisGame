@@ -1,6 +1,5 @@
 import Matrix from "./game-table-matrix";
-import Blocks from '../components/game-block';
-import {useRef, useEffect} from 'react';
+import styles from 'styled-components';
 const GameTable = ({matrix})=>{
     const matrixLoop = ()=>{
         let matrixArray = [];
@@ -10,12 +9,16 @@ const GameTable = ({matrix})=>{
         return matrixArray;
     }
 
-        
-
-    return <li>
+    return <BoardLineStyles>
         <ul>
-            {matrixLoop()}
+        {matrixLoop()}
         </ul>
-    </li>
+    </BoardLineStyles>
 }
 export default GameTable;
+
+const BoardLineStyles = styles.li`
+    ul{
+        display:flex;
+    }
+`;
