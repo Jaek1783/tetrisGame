@@ -14,8 +14,20 @@ ul,ol,dl {
 }
 
 .square{
-    background-color: blueviolet;
+    background-color: #8a2be2;
 }
 .tree{
     background-color: #93c942;
+}
+.elRight{
+    background-color: #6363f1;
+}
+.elLeft{
+    background-color: #fca32e;
+}
+.bar{
+    background-color: #d22738;
+}
+.zee{
+    background-color: #f0f037;
 }

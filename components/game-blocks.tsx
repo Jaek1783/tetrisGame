@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import GameTable from '../components/game-table/game-table';
 import BlockItems from './game-table/block-items';
 import styles from 'styled-components';
@@ -58,7 +58,7 @@ useEffect(()=>{
         // console.log(moveType); 
     }
     const seizeBlock = ()=>{
-        console.log('바닥에 닿았습니다')
+
         const movingBlocks = document.querySelectorAll('.moving');
         movingBlocks.forEach(moving=>{
             moving.classList.remove('moving');
@@ -67,10 +67,16 @@ useEffect(()=>{
         generateNewBlock();
     }
     const generateNewBlock = ()=>{
+        const BlockArray = Object.entries(BlockItems);
+        const randomIndex = Math.floor(Math.random()*BlockArray.length);
+        const BlockType = BlockArray[randomIndex][0];
+
+        MovingItem.type=BlockType;
         MovingItem.top = -1;
         MovingItem.left = 3;
         MovingItem.direction = 0;
         tempMovingItem = {...MovingItem};
+        renderBlocks();
     }
     const changeDirection = ()=>{
         const direction = tempMovingItem.direction;
