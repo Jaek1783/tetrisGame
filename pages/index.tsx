@@ -16,8 +16,8 @@ const HomePage = ()=>{
     
     const MovingItem = {
         type:'tree',
-        top:0,
-        left:0,
+        top:-1,
+        left:3,
         direction:0,
     }
     return <div className='App'>

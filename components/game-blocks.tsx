@@ -6,29 +6,45 @@ const Blocks = ({num, matrix, MovingItem})=>{
     let tempMovingItem = {...MovingItem};
     const blocksRef = useRef(null);
 useEffect(()=>{
-    const renderBlocks = ()=>{
+    const renderBlocks = (moveType="")=>{
         const {type, direction, top, left} = tempMovingItem;
         const movingBlocks = document.querySelectorAll('.moving');
         movingBlocks.forEach(moving=>{
             moving.classList.remove(type, 'moving');
         })
-        BlockItems[type][direction].forEach(block => {
+        BlockItems[type][direction].some(block => {
             const x = block[0]+left;
             const y = block[1]+top;
             const target = 
             blocksRef.current.childNodes[y]? 
-            blocksRef.current.childNodes[y].childNodes[0].childNodes[x] :
-            null;
-            target ? target.classList.add(type, "moving") : 
-            tempMovingItem = {...MovingItem}
-            setTimeout(()=>{
-                renderBlocks()
-            },0);
-        });
-    };
+            blocksRef.current.childNodes[y].childNodes[0].childNodes[x] : null;
 
+            const isAvailable = checkEmpty(target);
+            if(isAvailable){
+                target.classList.add(type, 'moving')
+            }else{
+                tempMovingItem = {...MovingItem}
+                setTimeout(()=>{  
+                    renderBlocks();
+                    if(moveType === 'top'){
+                        seizeBlock()
+                    }
+                },0);
+                return true;
+            }
+        });
+        MovingItem.left =left;
+        MovingItem.top = top;
+        MovingItem.direction = direction;
+    };
+    const checkEmpty = (target) =>{
+        if(!target || target.classList.contains('seized')){
+            return false;
+        }
+        return true
+    }
     const moveBlock = (moveType, amount) =>{
-        console.log(tempMovingItem);
+
         if (!tempMovingItem) {
             tempMovingItem = {
             left:0,
@@ -38,7 +54,28 @@ useEffect(()=>{
         if(tempMovingItem){
             tempMovingItem[moveType] += amount;
         }
-        renderBlocks();
+        renderBlocks(moveType);
+        // console.log(moveType); 
+    }
+    const seizeBlock = ()=>{
+        console.log('바닥에 닿았습니다')
+        const movingBlocks = document.querySelectorAll('.moving');
+        movingBlocks.forEach(moving=>{
+            moving.classList.remove('moving');
+            moving.classList.add('seized');
+        })
+        generateNewBlock();
+    }
+    const generateNewBlock = ()=>{
+        MovingItem.top = -1;
+        MovingItem.left = 3;
+        MovingItem.direction = 0;
+        tempMovingItem = {...MovingItem};
+    }
+    const changeDirection = ()=>{
+        const direction = tempMovingItem.direction;
+        direction === 3 ? tempMovingItem.direction = 0 : tempMovingItem.direction +=1;
+        renderBlocks(); 
     }
 // event.handling 키보드 작동
 const handleKeyDown = (e) => {
@@ -52,9 +89,9 @@ const handleKeyDown = (e) => {
       case 40:
         moveBlock("top", 1);
         break;
-      //   case 38:
-      //     changeDirection();
-      //     break;
+        case 38:
+          changeDirection();
+          break;
       //   case 32:
       //     dropBlock();
       //     break;
