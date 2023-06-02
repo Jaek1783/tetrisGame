@@ -28,6 +28,9 @@ ul,ol,dl {
 .bar{
     background-color: #d22738;
 }
-.zee{
+.zeeLeft{
     background-color: #f0f037;
+}
+.zeeRight{
+    background-color: #37cef0;
 }

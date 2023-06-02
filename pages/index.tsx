@@ -16,7 +16,7 @@ const HomePage = ()=>{
     const movingItem = {
         type:'',
         top:0,
-        left:3,
+        left:0,
         direction:0,
     }
     let tempMovingItem;
@@ -126,7 +126,7 @@ const HomePage = ()=>{
             console.log("블록이 생성됩니다");
             movingItem.type = BlockArray[randomIndex][0];
             movingItem.top = 0;
-            movingItem.left = 3;
+            movingItem.left = 0;
             movingItem.direction = 0;
             tempMovingItem = { ...movingItem };
             renderBlocks();
