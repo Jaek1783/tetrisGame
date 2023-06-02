@@ -1,24 +1,10 @@
-import Matrix from "./game-table-matrix";
 import styles from 'styled-components';
-const GameTable = ({matrix})=>{
-    const matrixLoop = ()=>{
-        let matrixArray = [];
-        for(let i = 0; i < matrix; i++){
-            matrixArray.push(<Matrix key={i}/>);
-        }
-        return matrixArray;
-    }
+const GameTable = ({matrixLoop})=>{
 
-    return <BoardLineStyles>
+    return <li className='board'>
         <ul>
-        {matrixLoop()}
+            {matrixLoop()}
         </ul>
-    </BoardLineStyles>
+    </li>
 }
 export default GameTable;
-
-const BoardLineStyles = styles.li`
-    ul{
-        display:flex;
-    }
-`;
