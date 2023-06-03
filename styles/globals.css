@@ -12,7 +12,10 @@
 ul,ol,dl {
     list-style-type: none;
 }
-
+a{
+    text-decoration: none;
+    color:inherit;
+}
 .square{
     background-color: #8a2be2;
 }
