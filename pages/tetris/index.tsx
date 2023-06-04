@@ -36,7 +36,7 @@ const TetrisPage = ()=>{
         }
     }
     const init = ()=>{
-        console.log('게임이 시작 되었습니다')
+        // console.log('게임이 시작 되었습니다')
         tempMovingItem = {...movingItem}
         // renderBlocks();
         generateNewBlock();
@@ -57,7 +57,6 @@ const TetrisPage = ()=>{
     }
 
     const generateBoardRow = () => {
-        console.log('실행 됨')
         const li = document.createElement('li');
         li.className = "board"
         const ul = document.createElement('ul');
@@ -68,7 +67,6 @@ const TetrisPage = ()=>{
         li.prepend(ul);
         console.log(li);
         playground.current.childNodes[1].prepend(li);
-        console.log(playground.current.childNodes[1])
       };
     const renderBlocks = (moveType = " ") => {
             const { type, direction, top, left } = tempMovingItem;
@@ -89,7 +87,7 @@ const TetrisPage = ()=>{
                 tempMovingItem = { ...movingItem };
                 if(moveType === 'gameOver'){
                     clearInterval(downInterval)
-                    console.log('게임이 종료되었습니다')
+                    // console.log('게임이 종료되었습니다')
                     buttonRef.current.style.display='block'
                 }
                 setTimeout(() => {
@@ -108,7 +106,7 @@ const TetrisPage = ()=>{
           
 
           const seizeBlock = () => {
-            console.log("바닥에 닿았습니다");
+            // console.log("바닥에 닿았습니다");
             const movingBlocks = document.querySelectorAll(".moving");
             movingBlocks.forEach((moving) => {
               moving.classList.remove("moving");
@@ -119,19 +117,18 @@ const TetrisPage = ()=>{
           };
           const checkMatch = ()=>{
             const childNodes = playground.current.childNodes[1].childNodes;
-            // console.log(childNodes)
+
             childNodes.forEach(child => {
-                // console.log(child.children[0].childNodes)
+
                 let matched = true;
                 child.children[0].childNodes.forEach(li=>{
-                    // console.log(li);
-                    // console.log(li.classList.contains('seized'));
+
                     if(!li.classList.contains('seized')){
                         matched = false;
                     }
                 })
                 if(matched){
-                    console.log('한줄 완성')
+                    // console.log('한줄 완성')
                     child.remove();
                     generateBoardRow();
                     setScore(prevScore => prevScore+100);
@@ -145,7 +142,7 @@ const TetrisPage = ()=>{
             },duration);
             const BlockArray = Object.entries(BlockItems);
             const randomIndex = Math.floor(Math.random() * BlockArray.length);
-            console.log("블록이 생성됩니다");
+
             movingItem.type = BlockArray[randomIndex][0];
             movingItem.top = 0;
             movingItem.left = 0;
@@ -204,8 +201,9 @@ const dropBlock = ()=>{
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-    return <div className='App'>
+    return <div className='play'>
         <div className='boardTable'>
+          <div className='score'>{score}</div>
             <PlayGroundStyle ref={playground}>
                 <ButtonStyles ref={buttonRef} onClick={buttonHandler}>{btn}</ButtonStyles>
                 <Blocks 
@@ -215,7 +213,6 @@ const dropBlock = ()=>{
                 matrixLoop={matrixLoop}
                 />  
             </PlayGroundStyle>
-            {score}
             {/* <button onClick={btnPause}>일시정지</button> */}
         </div>
     </div>
@@ -227,6 +224,7 @@ const PlayGroundStyle = styles.div`
 border : 1px solid #000;
 padding:.5rem;
 position:relative;
+background-color:#fff;
  .board{
     ul{
         display:flex;
