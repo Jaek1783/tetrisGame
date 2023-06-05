@@ -2,13 +2,6 @@
     padding:0;
     margin:0;
 }
-.play{
-    display:flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    padding-top:5rem;
-}
 ul,ol,dl {
     list-style-type: none;
 }
@@ -44,5 +37,16 @@ body{
 .score{
     font-size: 3rem;
     text-align: center;
+    /* background-color: #e6e4e4; */
+    border-bottom:1px solid #000;
     
+}
+.play{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top:5rem;
+}
+.boardTable{
+    display: flex;
 }
