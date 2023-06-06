@@ -3,20 +3,22 @@ import styles from 'styled-components';
 import Blocks from '../../components/game-blocks';
 import BlockItems from '../../components/game-table/block-items';
 import Matrix from '../../components/game-table/game-table-matrix';
-
+import GameConfig from '../../components/game-config';
+import UserRanking from '../../components/user-ranking';
 import { MongoClient } from 'mongodb';
 const TetrisPage = ()=>{
 
     const [num, setNum] = useState<number>(20);
     const [matrix, setMatrix] = useState<number>(10);
-    const [duration, setDuration] = useState<number>(500);
-
+    const [duration, setDuration] = useState<number>(400);
+    const [reverseDuration, setReverseDuration] = useState<number>(1);
     const [score, setScore] = useState<number>(0);
     const [togle, setTogle] = useState(true);
     const [btn, setBtn] = useState('게임시작')
     const buttonRef = useRef(null);
+    const rangkingRef = useRef(null);
     const playground = useRef(null);
-    const HomeBtn = useRef(null);
+    const [name, setName] = useState<string>('');
 
     const movingItem = {
         type:'',
@@ -27,13 +29,34 @@ const TetrisPage = ()=>{
     let downInterval;
     let tempMovingItem;
 
-    // const randomIndex = Math.floor(Math.random() * 7);
-    // console.log(randomIndex);
-    // setNextBlock(randomIndex);
-useEffect(()=>{
-  HomeBtn.current.style.display='none';
-},[]);
-    const buttonHandler = ()=>{
+//duration 변경하여 속도 조절하는 함수
+    const speedButtonUpHandler = (e)=>{
+      e.preventDefault();
+          if(reverseDuration < 4){
+              setDuration(duration => duration-100);
+              setReverseDuration(reverseDuration => reverseDuration+1);
+          }
+          if(reverseDuration === 5){
+              setDuration(duration => duration = 100);
+              setReverseDuration(reverseDuration => reverseDuration = 5);
+          }
+      }
+      const speedButtonDownHandler = (e)=>{
+          e.preventDefault();
+          if(reverseDuration > 0){
+              setDuration(duration => duration+100);
+              setReverseDuration(reverseDuration => reverseDuration-1);
+          }
+          if(reverseDuration === 1){
+              setDuration(duration => duration = 400);
+              setReverseDuration(reverseDuration => reverseDuration = 1);
+          }
+      }
+
+//게임시작 버튼
+    const buttonHandler = (e)=>{
+e.preventDefault();
+      console.log()
         buttonRef.current.style.display='none'
         // buttonRef.current.innerText = '게임시작'
         setTogle(!togle);
@@ -67,6 +90,9 @@ useEffect(()=>{
           // 이벤트 리스너 등록
           window.addEventListener("keydown", handleKeyDown);
     }
+const rangkingButtonHandler = ()=>{
+  console.log(score,'Lv', reverseDuration)
+}
     const init = ()=>{
         // console.log('게임이 시작 되었습니다')
         tempMovingItem = {...movingItem}
@@ -107,9 +133,10 @@ useEffect(()=>{
                 if(moveType === 'gameOver'){
                     clearInterval(downInterval)
                     // console.log('게임이 종료되었습니다')
-                    buttonRef.current.style.display='block'
+                    buttonRef.current.style.display='block';
+                    rangkingRef.current.style.display='block';
                     setBtn('다시시작')
-                    HomeBtn.current.style.display='block';
+                    return true;
                 }
                 setTimeout(() => {
                   renderBlocks('gameOver');
@@ -208,6 +235,12 @@ const dropBlock = ()=>{
 }
 
     return <div className='play'>
+      <GameConfig 
+      speedButtonUpHandler={speedButtonUpHandler}
+      speedButtonDownHandler={speedButtonDownHandler}
+      setName={setName}
+      reverseDuration={reverseDuration}
+      />
         <div className='boardTable'>
             <PlayGroundStyle ref={playground} btn={btn}>
                 <GameStartBtn ref={buttonRef} onClick={buttonHandler}>{btn}</GameStartBtn>
@@ -217,9 +250,15 @@ const dropBlock = ()=>{
                 tableLoop={tableLoop}
                 matrixLoop={matrixLoop}
                 />  
+            <UserRanking
+              score={score}
+              level={reverseDuration}
+              btn={btn}
+            />
             </PlayGroundStyle>
             <ScoreTableStyle>
             <div className='score'>{score} 점</div>
+            <RangkingBtn ref={rangkingRef} onClick={rangkingButtonHandler}>랭킹 등록하기</RangkingBtn>
             </ScoreTableStyle>
         </div>
     </div>
@@ -257,6 +296,19 @@ border-radius:15px;
 box-shadow:3px 3px 5px 3px #ccc;
 cursor:pointer;
 `;
+const RangkingBtn = styles.button`
+position:absolute;
+top:60%;
+left:24%;
+transform:translate(50% 50%);
+border:none;
+padding:1rem 2rem;
+border-radius:15px;
+background-color:#ccc;
+box-shadow:3px 3px 5px 3px #ccc;
+cursor:pointer;
+display:none;
+`;
 
 const ScoreTableStyle = styles.div`
 position:relative;
@@ -265,4 +317,5 @@ padding:.5rem;
 width:250px;
 margin:0 3rem;
 background-color:#fff;
+
 `;
