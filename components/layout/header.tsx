@@ -1,6 +1,9 @@
 import Link from "next/link";
 import styles from 'styled-components';
+
+
 const NavComponent = ()=>{
+ 
     return <HeaderStyles>
     <h1><Link href='/'>Tetris</Link></h1>
     <nav>

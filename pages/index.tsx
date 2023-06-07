@@ -1,10 +1,10 @@
 import Link from "next/link";
+
 import styles from 'styled-components';
-import NavComponent from "../components/layout/header";
 
 const Hompage = ()=>{
+
 return<div className="App">
-        <NavComponent></NavComponent>
     <HomePageStyles>
     <h1>Hello world</h1>
         <div>
@@ -35,10 +35,9 @@ justify-content:center;
         align-items:center;
         button{
             font-size:3rem;
-            border:none;
+            border:1px solid #000;
             padding:1rem 2rem;
             border-radius:15px;
-            box-shadow:3px 3px 5px 3px #ccc;
             cursor:pointer;
         }
         button:hover{

@@ -6,10 +6,9 @@ import Matrix from '../../components/game-table/game-table-matrix';
 import GameConfig from '../../components/game-config';
 import UserRanking from '../../components/user-ranking';
 import { MongoClient } from 'mongodb';
-
 import ScorePage from '../../components/score';
-const TetrisPage = ()=>{
 
+const TetrisPage = ()=>{
     const [num, setNum] = useState<number>(20);
     const [matrix, setMatrix] = useState<number>(10);
     const [duration, setDuration] = useState<number>(400);
@@ -17,6 +16,7 @@ const TetrisPage = ()=>{
     const [score, setScore] = useState<number>(0);
     const [togle, setTogle] = useState(true);
     const [btn, setBtn] = useState('게임시작')
+    // const 
     const buttonRef = useRef(null);
     const rangkingRef = useRef(null);
     const playground = useRef(null);
@@ -57,8 +57,9 @@ const TetrisPage = ()=>{
 //게임을 시작하고 키보드 이벤트를 실행시키는 함수
     const buttonHandler = (e)=>{
 e.preventDefault();
-
+      if(buttonRef.current){
         buttonRef.current.style.display='none'
+      }
         // buttonRef.current.innerText = '게임시작'
         setTogle(!togle);
         if(togle){
@@ -135,8 +136,10 @@ const renderBlocks = (moveType = " ") => {
             if(moveType === 'gameOver'){
                 clearInterval(downInterval)
                 // console.log('게임이 종료되었습니다')
-                buttonRef.current.style.display='block';
-                rangkingRef.current.style.display='block';
+                if(buttonRef.current || rangkingRef.current){
+                  buttonRef.current.style.display='block';
+                  rangkingRef.current.style.display='block';
+                }
                 setBtn('다시시작')
                 return true;
             }
@@ -169,9 +172,9 @@ const seizeBlock = () => {
 
 //블록이 완성되었는 지 확인하는 함수
 const checkMatch = ()=>{
-  const childNodes = playground.current.childNodes[1].childNodes;
-
-  childNodes.forEach(child => {
+  if(playground.current){
+    const childNodes = playground.current.childNodes[1].childNodes;
+    childNodes.forEach(child => {
 
       let matched = true;
       child.children[0].childNodes.forEach(li=>{
@@ -187,7 +190,9 @@ const checkMatch = ()=>{
           generateBoardRow();
           
       }
-  })
+    })
+  }
+
 }
 //블록이 완성되면 윗줄이 하나 생기는 함수
 const generateBoardRow = () => {
