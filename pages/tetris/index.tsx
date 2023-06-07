@@ -5,9 +5,9 @@ import BlockItems from '../../components/game/block-items';
 import Matrix from '../../components/game/game-table-matrix';
 import GameConfig from '../../components/game/game-config';
 import UserRanking from '../../components/game/user-ranking';
-import { MongoClient } from 'mongodb';
-import ScorePage from '../../components/game/score';
 
+import ScorePage from '../../components/game/score';
+import axios from 'axios';
 const TetrisPage = ()=>{
     const [num, setNum] = useState<number>(20);
     const [matrix, setMatrix] = useState<number>(10);
@@ -92,9 +92,18 @@ e.preventDefault();
           // 이벤트 리스너 등록
           window.addEventListener("keydown", handleKeyDown);
     }
-const rangkingButtonHandler = ()=>{
+//데이터베이스에 점수 등록하기
+const rangkingButtonHandler = (e)=>{
+  e.preventDefault();
   console.log(name, score,'Lv', reverseDuration)
+  const userInfo = {
+    name:name,
+    score:score,
+    duration:reverseDuration
+  }
+  axios.post('/api/rangking', userInfo);
 }
+
 //게임 보드판을 만들고, 게임을 실행하는 함수
     const init = ()=>{
         // console.log('게임이 시작 되었습니다')
