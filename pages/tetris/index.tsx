@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import styles from 'styled-components';
-import Blocks from '../../components/game-blocks';
-import BlockItems from '../../components/game-table/block-items';
-import Matrix from '../../components/game-table/game-table-matrix';
-import GameConfig from '../../components/game-config';
-import UserRanking from '../../components/user-ranking';
+import Blocks from '../../components/game/game-blocks';
+import BlockItems from '../../components/game/block-items';
+import Matrix from '../../components/game/game-table-matrix';
+import GameConfig from '../../components/game/game-config';
+import UserRanking from '../../components/game/user-ranking';
 import { MongoClient } from 'mongodb';
-import ScorePage from '../../components/score';
+import ScorePage from '../../components/game/score';
 
 const TetrisPage = ()=>{
     const [num, setNum] = useState<number>(20);

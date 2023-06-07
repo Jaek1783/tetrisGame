@@ -1,5 +1,5 @@
 import styles  from 'styled-components';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 const GameConfig = ({speedButtonDownHandler, speedButtonUpHandler,setName, reverseDuration})=>{
     const nameRef=useRef(null)

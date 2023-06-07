@@ -1,16 +1,14 @@
 import Link from "next/link";
 
 import styles from 'styled-components';
-
+import HowToGame from "../components/intro/how";
 const Hompage = ()=>{
 
 return<div className="App">
     <HomePageStyles>
     <h1>Hello world</h1>
-        <div>
-            <p>youtube</p>
-        </div>
-        <div>
+        <HowToGame/>
+        <div className="buttonContainer">
             <button><Link href='/tetris'>Start</Link></button>
         </div>
     </HomePageStyles>
@@ -27,9 +25,10 @@ h1{
 }
 display:flex;
 justify-content:center;
-    div{
-        width:50%;
-        height:80vh;
+height:80vh;
+padding:0 10%;
+    div.buttonContainer{
+        width:40%;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -46,6 +45,4 @@ justify-content:center;
             // color:#fff;
         }
     }
-
-// width:100%;
 `;

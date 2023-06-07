@@ -1,5 +1,5 @@
 
-import GameTable from '../components/game-table/game-table';
+import GameTable from './game-table';
 
 import styles from 'styled-components';
 const Blocks = ({num, matrix,matrixLoop, tableLoop})=>{
