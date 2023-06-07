@@ -1,9 +1,10 @@
 import styles from 'styled-components';
-const UserRanking = ({score, level, btn})=>{
+const UserRanking = ({score, level, btn, name})=>{
 return <RankingContainer btn={btn}>
         <dl>
-            <dt>점수 : {score}</dt>
-            <dd>속도 : Lv {level}</dd>
+            <dt>이름 : {name}</dt>
+            <dd>점수 : {score}</dd>
+            <dd>속도 : {level}</dd>
         </dl>
 </RankingContainer>
 };

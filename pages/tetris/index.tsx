@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState} from 'react';
 import styles from 'styled-components';
 import Blocks from '../../components/game-blocks';
 import BlockItems from '../../components/game-table/block-items';
@@ -6,6 +6,8 @@ import Matrix from '../../components/game-table/game-table-matrix';
 import GameConfig from '../../components/game-config';
 import UserRanking from '../../components/user-ranking';
 import { MongoClient } from 'mongodb';
+
+import ScorePage from '../../components/score';
 const TetrisPage = ()=>{
 
     const [num, setNum] = useState<number>(20);
@@ -28,7 +30,6 @@ const TetrisPage = ()=>{
     }
     let downInterval;
     let tempMovingItem;
-
 //duration 변경하여 속도 조절하는 함수
     const speedButtonUpHandler = (e)=>{
       e.preventDefault();
@@ -53,10 +54,10 @@ const TetrisPage = ()=>{
           }
       }
 
-//게임시작 버튼
+//게임을 시작하고 키보드 이벤트를 실행시키는 함수
     const buttonHandler = (e)=>{
 e.preventDefault();
-      console.log()
+
         buttonRef.current.style.display='none'
         // buttonRef.current.innerText = '게임시작'
         setTogle(!togle);
@@ -91,8 +92,9 @@ e.preventDefault();
           window.addEventListener("keydown", handleKeyDown);
     }
 const rangkingButtonHandler = ()=>{
-  console.log(score,'Lv', reverseDuration)
+  console.log(name, score,'Lv', reverseDuration)
 }
+//게임 보드판을 만들고, 게임을 실행하는 함수
     const init = ()=>{
         // console.log('게임이 시작 되었습니다')
         tempMovingItem = {...movingItem}
@@ -112,105 +114,110 @@ const rangkingButtonHandler = ()=>{
         }
         return matrixArray;
     }
-
-    const renderBlocks = (moveType = " ") => {
-            const { type, direction, top, left } = tempMovingItem;
-            const movingBlocks = document.querySelectorAll(".moving");
-            movingBlocks.forEach((moving) => {
-              moving.classList.remove(type, "moving");
-            });
-            BlockItems[type][direction].some((block) => {
-              const x = block[0] + left;
-              const y = block[1] + top;
-              const target =
-              playground.current?.childNodes[1]?.childNodes[y]?.childNodes[0]
-                  ?.childNodes[x];
-              const isAvailable = checkEmpty(target);
-              if (isAvailable) {
-                target.classList.add(type, "moving");
-              } else {
-                tempMovingItem = { ...movingItem };
-                if(moveType === 'gameOver'){
-                    clearInterval(downInterval)
-                    // console.log('게임이 종료되었습니다')
-                    buttonRef.current.style.display='block';
-                    rangkingRef.current.style.display='block';
-                    setBtn('다시시작')
-                    return true;
-                }
-                setTimeout(() => {
-                  renderBlocks('gameOver');
-                  if (moveType === "top") {
-                    seizeBlock();
-                  }
-                }, 0);
-                return true;
-              }
-            });
-            movingItem.left = left;
-            movingItem.top = top;
-            movingItem.direction = direction;
-          };
-          
-
-          const seizeBlock = () => {
-            // console.log("바닥에 닿았습니다");
-            const movingBlocks = document.querySelectorAll(".moving");
-            movingBlocks.forEach((moving) => {
-              moving.classList.remove("moving");
-              moving.classList.add("seized");
-            });
-
-            checkMatch();
-            generateNewBlock();
-          };
-          const checkMatch = ()=>{
-            const childNodes = playground.current.childNodes[1].childNodes;
-
-            childNodes.forEach(child => {
-
-                let matched = true;
-                child.children[0].childNodes.forEach(li=>{
-
-                    if(!li.classList.contains('seized')){
-                        matched = false;
-                    }
-                })
-                if(matched){
-                  setScore(score=> score+100);
-                    // console.log('한줄 완성')
-                    child.remove();
-                    generateBoardRow();
-                    
-                }
-            })
-          }
-          const generateBoardRow = () => {
-            const li = document.createElement('li');
-            li.className = "board"
-            const ul = document.createElement('ul');
-            for(let i=0; i<matrix; i++){
-                const matrix = document.createElement('li');
-                ul.appendChild(matrix);
-            }
-            li.prepend(ul);
-            playground.current.childNodes[1].prepend(li);
-          };         
-          const generateNewBlock = () => {
-            clearInterval(downInterval)
-            downInterval = setInterval(()=>{
-                moveBlock('top',1);
-            },duration);
-            const BlockArray = Object.entries(BlockItems);
-            const randomIndex = Math.floor(Math.random() * BlockArray.length);
-            movingItem.type = BlockArray[randomIndex][0];
-            movingItem.top = 0;
-            movingItem.left = 3;
-            movingItem.direction = 0;
+//게임을 실행하여 블록을 렌더링하는 함수
+const renderBlocks = (moveType = " ") => {
+        const { type, direction, top, left } = tempMovingItem;
+        const movingBlocks = document.querySelectorAll(".moving");
+        movingBlocks.forEach((moving) => {
+          moving.classList.remove(type, "moving");
+        });
+        BlockItems[type][direction].some((block) => {
+          const x = block[0] + left;
+          const y = block[1] + top;
+          const target =
+          playground.current?.childNodes[1]?.childNodes[y]?.childNodes[0]
+              ?.childNodes[x];
+          const isAvailable = checkEmpty(target);
+          if (isAvailable) {
+            target.classList.add(type, "moving");
+          } else {
             tempMovingItem = { ...movingItem };
-            renderBlocks();
+            if(moveType === 'gameOver'){
+                clearInterval(downInterval)
+                // console.log('게임이 종료되었습니다')
+                buttonRef.current.style.display='block';
+                rangkingRef.current.style.display='block';
+                setBtn('다시시작')
+                return true;
+            }
+            setTimeout(() => {
+              renderBlocks('gameOver');
+              if (moveType === "top") {
+                seizeBlock();
+              }
+            }, 0);
+            return true;
+          }
+        });
+        movingItem.left = left;
+        movingItem.top = top;
+        movingItem.direction = direction;
+      };
+          
+//블록을 고정시키는 함수
+const seizeBlock = () => {
+  // console.log("바닥에 닿았습니다");
+  const movingBlocks = document.querySelectorAll(".moving");
+  movingBlocks.forEach((moving) => {
+    moving.classList.remove("moving");
+    moving.classList.add("seized");
+  });
 
-          };
+  checkMatch();
+  generateNewBlock();
+};
+
+//블록이 완성되었는 지 확인하는 함수
+const checkMatch = ()=>{
+  const childNodes = playground.current.childNodes[1].childNodes;
+
+  childNodes.forEach(child => {
+
+      let matched = true;
+      child.children[0].childNodes.forEach(li=>{
+
+          if(!li.classList.contains('seized')){
+              matched = false;
+          }
+      })
+      if(matched){
+        setScore(score=> score+100);
+          // console.log('한줄 완성')
+          child.remove();
+          generateBoardRow();
+          
+      }
+  })
+}
+//블록이 완성되면 윗줄이 하나 생기는 함수
+const generateBoardRow = () => {
+  const li = document.createElement('li');
+  li.className = "board"
+  const ul = document.createElement('ul');
+  for(let i=0; i<matrix; i++){
+      const matrix = document.createElement('li');
+      ul.appendChild(matrix);
+  }
+  li.prepend(ul);
+  playground.current.childNodes[1].prepend(li);
+};   
+//새로운 블록 생성하는 함수
+const generateNewBlock = () => {
+
+  clearInterval(downInterval)
+  downInterval = setInterval(()=>{
+      moveBlock('top',1);
+  },duration);
+  const BlockArray = Object.entries(BlockItems);
+  const randomIndex = Math.floor(Math.random() * BlockArray.length);
+  
+  movingItem.type = BlockArray[randomIndex][0];
+  movingItem.top = 0;
+  movingItem.left = 3;
+  movingItem.direction = 0;
+  tempMovingItem = { ...movingItem };
+  renderBlocks();
+};
 
 const checkEmpty = (target)=>{
     if(!target || target.classList.contains("seized")){
@@ -251,15 +258,17 @@ const dropBlock = ()=>{
                 matrixLoop={matrixLoop}
                 />  
             <UserRanking
+              name={name}
               score={score}
               level={reverseDuration}
               btn={btn}
             />
             </PlayGroundStyle>
-            <ScoreTableStyle>
-            <div className='score'>{score} 점</div>
-            <RangkingBtn ref={rangkingRef} onClick={rangkingButtonHandler}>랭킹 등록하기</RangkingBtn>
-            </ScoreTableStyle>
+            <ScorePage 
+            score={score} 
+            rangkingButtonHandler={rangkingButtonHandler} 
+            rangkingRef={rangkingRef}
+            />
         </div>
     </div>
 }
@@ -295,27 +304,4 @@ padding:1rem 2rem;
 border-radius:15px;
 box-shadow:3px 3px 5px 3px #ccc;
 cursor:pointer;
-`;
-const RangkingBtn = styles.button`
-position:absolute;
-top:60%;
-left:24%;
-transform:translate(50% 50%);
-border:none;
-padding:1rem 2rem;
-border-radius:15px;
-background-color:#ccc;
-box-shadow:3px 3px 5px 3px #ccc;
-cursor:pointer;
-display:none;
-`;
-
-const ScoreTableStyle = styles.div`
-position:relative;
-border : 1px solid #000;
-padding:.5rem;
-width:250px;
-margin:0 3rem;
-background-color:#fff;
-
 `;
