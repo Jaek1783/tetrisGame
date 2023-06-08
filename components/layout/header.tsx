@@ -10,7 +10,7 @@ const NavComponent = ()=>{
         <ul>
             <li>소개</li>
             <li><Link href='/tetris'>게임하기</Link></li>
-            <li>랭킹</li>
+            <li><Link href='/rangking'>랭킹</Link></li>
         </ul>
     </nav>
     </HeaderStyles>

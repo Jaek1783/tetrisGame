@@ -93,15 +93,16 @@ e.preventDefault();
           window.addEventListener("keydown", handleKeyDown);
     }
 //데이터베이스에 점수 등록하기
-const rangkingButtonHandler = (e)=>{
+const rangkingButtonHandler = async (e)=>{
   e.preventDefault();
-  console.log(name, score,'Lv', reverseDuration)
+
   const userInfo = {
     name:name,
     score:score,
     duration:reverseDuration
   }
-  axios.post('/api/rangking', userInfo);
+  console.log(userInfo);
+ const response = await axios.post('/api/rangking', userInfo);
 }
 
 //게임 보드판을 만들고, 게임을 실행하는 함수
