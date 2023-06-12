@@ -14,22 +14,40 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cors());
 
+const User = require('./schema');
 
 mongoose.connect(MONGODB_URI)
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.log(err));;
 
-app.use((req,res,next)=>{
-    console.log('1 Time: ', Date.now());
-    next();
-});
+// app.use((req,res,next)=>{
+//     console.log('1 Time: ', Date.now());
+//     next();
+// });
 app.listen(PORT, ()=>{
     console.log(`${PORT} 서버가 켜졌습니다`)
 })
-app.post('/',(req,res)=>{
-    console.log(req.body);
+app.post('/',async (req,res)=>{
+    // console.log(req.body);
+    const {name, score, duration} = req.body;
+    console.log(name, score,duration);
+    const newRank = new User({
+        name:name,
+        score:score,
+        duration:duration
+    });
+    await newRank.save();
+    return res.redirect('/');
 })
 
-app.get('/',(req,res)=>{
-    res.send('hello')
+app.get('/',async (req,res)=>{
+        try {
+          const ranks = await User.find(); // User 모델을 사용하여 데이터베이스에서 랭크 정보를 검색합니다.
+        //   res.json(ranks);
+          res.send(ranks); 
+        } catch (err) {
+          console.error('랭크 정보를 가져올 수 없습니다.', err);
+          res.status(500).json({ message: '랭크 정보를 가져올 수 없습니다.' });
+          res.send('err');
+        }
 })
