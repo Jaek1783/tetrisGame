@@ -1,33 +1,34 @@
 import styles  from 'styled-components';
 import { useRef } from 'react';
 import Link from 'next/link';
-const GameConfig = ({speedButtonDownHandler, speedButtonUpHandler, reverseDuration})=>{
-
+const GameRangking = ({setName, rangkingButtonHandler, rangkBtn})=>{
+    const nameRef=useRef(null)
     const settingRef = useRef(null)
     const submitHandler = (e)=>{
         e.preventDefault();
-        settingRef.current.style.display = 'none';
+        const nameValue = nameRef.current.value;
+        console.log(nameValue);
+        setName(nameValue);
     }
-return <SpeedButton ref={settingRef}>
+return <RangkingModal ref={settingRef} rangkBtn={rangkBtn}>
             <div className='setting'>
-                <span className='title'>속도 설정하기</span>
-                    <SumbitBtn onClick={submitHandler}>저장</SumbitBtn>
-                <div>
-                    <span>속도 : {reverseDuration} (최대속도 4)</span>
-                    <div className='buttonContainer'>
-                        <button onClick={speedButtonUpHandler}>UP</button>
-                        <button onClick={speedButtonDownHandler}>Down</button>
-                    </div>
-                </div> 
-                <button className='back'><Link href='/'>홈으로 나가기</Link></button>
+                <span className='title'>랭킹</span>
+                    
+                <form onSubmit={submitHandler}>
+                    <input type="text" placeholder='등록할 닉네임을 적어주세요' ref={nameRef}/>
+                    <button type='submit'>저장</button>
+                </form>
+                <SumbitBtn onClick={rangkingButtonHandler}>등록하기</SumbitBtn>
+                <button className='back'><Link href='/'>다음에 등록하기</Link></button>
             </div>
             
-        </SpeedButton>
+        </RangkingModal>
 };
 
-export default GameConfig;
+export default GameRangking;
 
-const SpeedButton = styles.div`
+const RangkingModal = styles.div`
+display:${props => props.rangkBtn ? 'block': 'none'};
 width:100%;
 background-color: rgba(0,0,0,0.5);
 position:fixed;
@@ -43,7 +44,7 @@ div.setting{
     flex-direction:column;
     background-color:#ebebeb;
     width:200px;
-    padding:1rem 1rem 5rem;
+    padding:1rem 1rem 6.5rem;
     position:absolute;
     border:1px solid #000;
     top:50%;
@@ -82,7 +83,7 @@ div.setting{
 
 const SumbitBtn = styles.button`
 position:absolute;
-bottom:30%;
+bottom:25%;
 left:50%;
 transform:translate(-50%, 50%);
 border:none;

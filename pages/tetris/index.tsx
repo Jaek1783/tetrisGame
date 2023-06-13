@@ -5,7 +5,7 @@ import BlockItems from '../../components/game/block-items';
 import Matrix from '../../components/game/game-table-matrix';
 import GameConfig from '../../components/game/game-config';
 import UserRanking from '../../components/game/user-ranking';
-
+import GameRangking from '../../components/game/send-ranking';
 import ScorePage from '../../components/game/score';
 import axios from 'axios';
 const TetrisPage = ()=>{
@@ -14,7 +14,8 @@ const TetrisPage = ()=>{
     const [duration, setDuration] = useState<number>(400);
     const [reverseDuration, setReverseDuration] = useState<number>(1);
     const [score, setScore] = useState<number>(0);
-    const [togle, setTogle] = useState(true);
+    const [togle, setTogle] = useState<boolean>(true);
+    const [rangkBtn, setRangkBtn] = useState<boolean>(false);
     const [btn, setBtn] = useState('게임시작')
     // const 
     const buttonRef = useRef(null);
@@ -92,7 +93,7 @@ e.preventDefault();
           // 이벤트 리스너 등록
           window.addEventListener("keydown", handleKeyDown);
     }
-//데이터베이스에 점수 등록하기
+//데이터베이스에 점수 등록하는 함수
 const rangkingButtonHandler = async (e)=>{
   e.preventDefault();
 
@@ -103,6 +104,7 @@ const rangkingButtonHandler = async (e)=>{
   }
   console.log(userInfo);
  const response = await axios.post('/api/rangking', userInfo);
+ setRangkBtn(false);
 }
 
 //게임 보드판을 만들고, 게임을 실행하는 함수
@@ -260,8 +262,12 @@ const dropBlock = ()=>{
       <GameConfig 
       speedButtonUpHandler={speedButtonUpHandler}
       speedButtonDownHandler={speedButtonDownHandler}
-      setName={setName}
       reverseDuration={reverseDuration}
+      />
+      <GameRangking
+      setName={setName}
+      rangkingButtonHandler={rangkingButtonHandler}
+      rangkBtn={rangkBtn}
       />
         <div className='boardTable'>
             <PlayGroundStyle ref={playground} btn={btn}>
@@ -273,15 +279,14 @@ const dropBlock = ()=>{
                 matrixLoop={matrixLoop}
                 />  
             <UserRanking
-              name={name}
               score={score}
               level={reverseDuration}
               btn={btn}
             />
             </PlayGroundStyle>
             <ScorePage 
-            score={score} 
-            rangkingButtonHandler={rangkingButtonHandler} 
+            score={score}
+            setRangkBtn={setRangkBtn}
             rangkingRef={rangkingRef}
             />
         </div>
