@@ -44,7 +44,7 @@ div.setting{
     flex-direction:column;
     background-color:#ebebeb;
     width:200px;
-    padding:1rem 1rem 6.5rem;
+    padding:1rem 1rem 5rem;
     position:absolute;
     border:1px solid #000;
     top:50%;
@@ -60,23 +60,19 @@ div.setting{
 }
     form{
         padding-bottom:1rem;
+        display:flex;
         input{
             width:calc(100%-1rem);
-            padding:.5rem;
+            padding:5px;
+            margin-right:5px;
+        }
+        button{
+            padding:4px;
         }
     }
     div{
         display:flex;
         align-items:center;
-
-        .buttonContainer{
-            display:flex;
-            flex-direction:column;
-            padding:.5rem;
-            button{
-                width:50px;
-            }
-        }
     }
     
 `;
@@ -88,6 +84,7 @@ left:50%;
 transform:translate(-50%, 50%);
 border:none;
 padding:1rem 2rem;
+margin-bottom:.5rem;
 border-radius:15px;
 border:1px solid #000;
 background-color:#ccc;

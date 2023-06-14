@@ -1,13 +1,12 @@
 import Link from "next/link";
-
+import IntroduceGamePage from "../components/intro/introduce";
 import styles from 'styled-components';
-import HowToGame from "../components/intro/how";
 const Hompage = ()=>{
 
 return<div className="App">
     <HomePageStyles>
     <h1>Hello world</h1>
-        <HowToGame/>
+        <IntroduceGamePage/>
         <div className="buttonContainer">
             <button><Link href='/tetris'>Start</Link></button>
         </div>

@@ -17,7 +17,7 @@ export default ScorePage;
 
 const RangkingBtn = styles.button`
 position:absolute;
-top:60%;
+top:40%;
 left:24%;
 transform:translate(50% 50%);
 border:none;

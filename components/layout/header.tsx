@@ -8,8 +8,8 @@ const NavComponent = ()=>{
     <h1><Link href='/'>Tetris</Link></h1>
     <nav>
         <ul>
-            <li>소개</li>
-            <li><Link href='/tetris'>게임하기</Link></li>
+            <li><Link href='/how'>게임 방법</Link></li>
+            <li><Link href='/tetris'>게임 하기</Link></li>
             <li><Link href='/rangking'>랭킹</Link></li>
         </ul>
     </nav>
@@ -19,6 +19,9 @@ const NavComponent = ()=>{
 export default NavComponent;
 
 const HeaderStyles = styles.header`
+h1{
+    color:#fff;
+}
 padding:1rem;
     // background-color:#37cef0;
         nav{
