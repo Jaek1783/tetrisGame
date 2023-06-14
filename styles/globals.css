@@ -12,6 +12,9 @@ a{
 body{
     background-color:#37cef0;
 }
+iframe{
+    border:none;
+}
 /* block style */
 .square{
     background-color: #8a2be2;
