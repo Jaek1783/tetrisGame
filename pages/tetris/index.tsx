@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import styles from 'styled-components';
 import Blocks from '../../components/game/game-blocks';
 import BlockItems from '../../components/game/block-items';
@@ -17,7 +17,8 @@ const TetrisPage = ()=>{
     const [togle, setTogle] = useState<boolean>(true);
     const [rangkBtn, setRangkBtn] = useState<boolean>(false);
     const [btn, setBtn] = useState('게임시작')
-    // const 
+    const [test, setTest] = useState<number>();
+
     const buttonRef = useRef(null);
     const rangkingRef = useRef(null);
     const playground = useRef(null);
@@ -113,6 +114,7 @@ const rangkingButtonHandler = async (e)=>{
         tempMovingItem = {...movingItem}
         generateNewBlock();
     }
+
     let tableArray = [];
     const tableLoop = ()=>{
         for(let i = 0; i < num; i++){
@@ -217,7 +219,8 @@ const generateBoardRow = () => {
   }
   li.prepend(ul);
   playground.current.childNodes[1].prepend(li);
-};   
+}; 
+
 //새로운 블록 생성하는 함수
 const generateNewBlock = () => {
 
@@ -227,7 +230,7 @@ const generateNewBlock = () => {
   },duration);
   const BlockArray = Object.entries(BlockItems);
   const randomIndex = Math.floor(Math.random() * BlockArray.length);
-  
+
   movingItem.type = BlockArray[randomIndex][0];
   movingItem.top = 0;
   movingItem.left = 3;

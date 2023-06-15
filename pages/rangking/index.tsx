@@ -6,7 +6,7 @@ const RangkingPage = ()=>{
     const [dbData, setDbData] = useState<any>([]);
     const [rankData, setRankData] = useState<any>([]);
     const [toggle, setToggle] = useState<boolean>(true);
-    const [search, setSearch] = useState<string>('');
+    const [sort, setSortData] = useState<string>('');
 useEffect(()=>{
     axios.get('http://localhost:4000')
     .then(response => setDbData(response.data));
@@ -23,7 +23,6 @@ const SortBtnHandler = (e)=>{
     setRankData(filterData);
    name.current.value = '';
 }
-
 const AllData = (e)=>{
     e.preventDefault();
     setToggle(true);

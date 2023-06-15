@@ -7,8 +7,12 @@ const ScorePage = ({score, setRangkBtn, rangkingRef})=>{
 const rangkingModalHandler = ()=>{
   setRangkBtn(true)
 }
+const pauseHandler = ()=>{
+  alert('게임을 일시정지 하였습니다. 플레이를 진행하겠습니까?');
+};
 return  <ScoreTableStyle>
     <div className='score'>{score} 점</div>
+    <PauseBtn onClick={pauseHandler}>게임 일시정지</PauseBtn>
     <RangkingBtn ref={rangkingRef} onClick={rangkingModalHandler }>랭킹 등록하기</RangkingBtn>
     <Link href='/rangking'><GoRangking>랭킹 보러가기</GoRangking></Link>
 </ScoreTableStyle>
@@ -31,6 +35,19 @@ display:none;
 const GoRangking = styles.button`
 position:absolute;
 bottom:30%;
+left:24%;
+transform:translate(50% 50%);
+border:none;
+padding:1rem 2rem;
+border-radius:15px;
+background-color:#ccc;
+box-shadow:3px 3px 5px 3px #ccc;
+cursor:pointer;
+`;
+
+const PauseBtn = styles.button`
+position:absolute;
+top:20%;
 left:24%;
 transform:translate(50% 50%);
 border:none;

@@ -1,6 +1,7 @@
 import styles from 'styled-components';
 
 const DurationFilterComponent = ({sortData})=>{
+    sortData.sort((a,b)=>b.score - a.score);
     return <RankDataStyle>
         <ul>
             {sortData?.map((rank,index)=>{
@@ -36,5 +37,9 @@ const RankDataStyle =styles.div`
                 flex-basis:33.3%;
             }
         }
+    }
+    li:nth-child(1),li:nth-child(2),li:nth-child(3){
+        font-weight:bold;
+        font-size:1.1rem;
     }
 `;
