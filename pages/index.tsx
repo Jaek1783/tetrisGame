@@ -5,7 +5,6 @@ const Hompage = ()=>{
 
 return<div className="App">
     <HomePageStyles>
-    <h1>Hello world</h1>
         <IntroduceGamePage/>
         <div className="buttonContainer">
             <button><Link href='/tetris'>Start</Link></button>
@@ -15,17 +14,12 @@ return<div className="App">
 }
 export default Hompage;
 
-const HomePageStyles = styles.div`
-h1{
-    width:0;
-    height:0;
-    visibility:hidden;
-    display:none;
-}
+const HomePageStyles = styles.section`
 display:flex;
+flex-direction:column;
 justify-content:center;
-height:80vh;
-padding:0 10%;
+align-items:center;
+padding:10%;
     div.buttonContainer{
         width:40%;
         display:flex;
@@ -37,6 +31,7 @@ padding:0 10%;
             padding:1rem 2rem;
             border-radius:15px;
             cursor:pointer;
+            margin-top:3rem;
         }
         button:hover{
             box-shadow:none;

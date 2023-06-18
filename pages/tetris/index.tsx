@@ -17,7 +17,6 @@ const TetrisPage = ()=>{
     const [togle, setTogle] = useState<boolean>(true);
     const [rangkBtn, setRangkBtn] = useState<boolean>(false);
     const [btn, setBtn] = useState('게임시작')
-    const [test, setTest] = useState<number>();
 
     const buttonRef = useRef(null);
     const rangkingRef = useRef(null);
@@ -261,39 +260,38 @@ const dropBlock = ()=>{
     },10);
 }
 
-    return <div className='play'>
-      <GameConfig 
-      speedButtonUpHandler={speedButtonUpHandler}
-      speedButtonDownHandler={speedButtonDownHandler}
-      reverseDuration={reverseDuration}
-      />
+    return <section className='play'>
       <GameRangking
       setName={setName}
       rangkingButtonHandler={rangkingButtonHandler}
       rangkBtn={rangkBtn}
       />
-        <div className='boardTable'>
+        <div className='gameContainer'>
+        <ScorePage 
+            score={score}
+            setRangkBtn={setRangkBtn}
+            rangkingRef={rangkingRef}
+            btn={btn}
+            />
             <PlayGroundStyle ref={playground} btn={btn}>
                 <GameStartBtn ref={buttonRef} onClick={buttonHandler}>{btn}</GameStartBtn>
                 <Blocks 
                 num={num}
                 matrix={matrix}
                 tableLoop={tableLoop}
-                matrixLoop={matrixLoop}
-                />  
-            <UserRanking
-              score={score}
-              level={reverseDuration}
-              btn={btn}
-            />
+                matrixLoop={matrixLoop} />  
+                <UserRanking
+                score={score}
+                level={reverseDuration}
+                btn={btn} />
+                <GameConfig 
+                speedButtonUpHandler={speedButtonUpHandler}
+                speedButtonDownHandler={speedButtonDownHandler}
+                reverseDuration={reverseDuration}
+                />
             </PlayGroundStyle>
-            <ScorePage 
-            score={score}
-            setRangkBtn={setRangkBtn}
-            rangkingRef={rangkingRef}
-            />
         </div>
-    </div>
+    </section>
 }
 
 export default TetrisPage;
@@ -308,20 +306,20 @@ background-color:#fff;
         display:flex;
     }
     li{
-        width:25px;
-        height:25px;
+        width:2rem;
+        height:2rem;
         outline : .1px solid #ccc;
         background-color:${props=>
           props.btn === '다시시작' ? '#333':''
-    }
- }
+          }
+      }
 `;
 
 const GameStartBtn = styles.button`
 position:absolute;
 top:40%;
-left:29%;
-transform:translate(50% 50%);
+left:50%;
+transform:translate(-50%, -50%);
 border:none;
 padding:1rem 2rem;
 border-radius:15px;

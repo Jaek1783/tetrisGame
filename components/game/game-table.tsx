@@ -1,4 +1,4 @@
-import styles from 'styled-components';
+
 const GameTable = ({matrixLoop})=>{
 
     return <li className='board'>

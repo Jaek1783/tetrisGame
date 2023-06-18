@@ -20,12 +20,12 @@ const DurationFilterComponent = ({sortData})=>{
 
 export default DurationFilterComponent;
 
-const RankDataStyle =styles.div`
+const RankDataStyle =styles.section`
     span{
         
     }
     li{
-        width:50%;
+        width:80%;
         margin:0 auto;
         background-color: rgba(255,255,255, 0.5);
         border-bottom:1px solid;

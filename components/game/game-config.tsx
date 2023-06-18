@@ -30,8 +30,10 @@ export default GameConfig;
 const SpeedButton = styles.div`
 width:100%;
 background-color: rgba(0,0,0,0.5);
-position:fixed;
-height:120vh;
+position:absolute;
+top:0;
+left:0;
+height:41rem;
 z-index:99;
     span.title{
         padding-bottom:1rem;

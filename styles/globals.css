@@ -35,7 +35,7 @@ iframe{
     background-color: #f0f037;
 }
 .zeeRight{
-    background-color: #37cef0;
+    background-color: #23d7ff;
 }
 .score{
     font-size: 3rem;
@@ -47,9 +47,12 @@ iframe{
     display:flex;
     justify-content: center;
     align-items: center;
-    padding-top:5rem;
-    
+    background-color: rgba(255,255,255,0.5);
+    width:50%;
+    margin:0 auto;
+    padding:2rem;
+
 }
-.boardTable{
-    display: flex;
+.text{
+    color:#fff;
 }

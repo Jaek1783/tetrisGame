@@ -1,7 +1,8 @@
 import styles from 'styled-components';
 
 const IntroduceGamePage = ()=>{
-    return <div>
+
+    return <div className='text'>
         <IntroStyles>
             <li>
                 <dl>
@@ -12,11 +13,15 @@ const IntroduceGamePage = ()=>{
                     <dd>누가 1등인가? 점수 등록하고 랭킹 확인하세요~</dd>
                 </dl>
             </li>
-            <li>
+            {/* <li>
                 <div>
-                    <iframe id="ytplayer" width="640" height="360" src="https://www.youtube.com/embed/cH0dhkPINyk"></iframe>
+                    <iframe 
+                    id="ytplayer" 
+                    width="640" 
+                    height="360" 
+                    src="https://www.youtube.com/embed/cH0dhkPINyk"></iframe>
                 </div>
-            </li>
+            </li> */}
         </IntroStyles>
     </div>
 };
@@ -24,7 +29,17 @@ const IntroduceGamePage = ()=>{
 export default IntroduceGamePage;
 
 const IntroStyles = styles.ul`
-color:#fff;
+animation: down 2s ease-in-out;
+@keyframes down {
+    0%{
+        opacity:0;
+        transform:translate(0,-10%);
+    }
+    100%{
+        opacity:1;
+        
+    }
+}
     dl{
         dt{
             font-weight:bold;
