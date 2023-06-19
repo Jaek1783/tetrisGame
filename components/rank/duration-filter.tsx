@@ -21,9 +21,6 @@ const DurationFilterComponent = ({sortData})=>{
 export default DurationFilterComponent;
 
 const RankDataStyle =styles.section`
-    span{
-        
-    }
     li{
         width:80%;
         margin:0 auto;
@@ -41,5 +38,7 @@ const RankDataStyle =styles.section`
     li:nth-child(1),li:nth-child(2),li:nth-child(3){
         font-weight:bold;
         font-size:1.1rem;
+        background-color: #6363f1;
+        color:#fff;
     }
 `;

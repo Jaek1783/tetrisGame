@@ -1,12 +1,15 @@
 import styles  from 'styled-components';
 import { useRef } from 'react';
 import Link from 'next/link';
-const GameConfig = ({speedButtonDownHandler, speedButtonUpHandler, reverseDuration})=>{
+const GameConfig = ({speedButtonDownHandler, speedButtonUpHandler, reverseDuration, backColor, setBackColor})=>{
 
     const settingRef = useRef(null)
     const submitHandler = (e)=>{
         e.preventDefault();
         settingRef.current.style.display = 'none';
+    }
+    const backgroundColorHandler = ()=>{
+        setBackColor(!backColor);
     }
 return <SpeedButton ref={settingRef}>
             <div className='setting'>
@@ -18,7 +21,10 @@ return <SpeedButton ref={settingRef}>
                         <button onClick={speedButtonUpHandler}>UP</button>
                         <button onClick={speedButtonDownHandler}>Down</button>
                     </div>
-                </div> 
+                </div>
+                <div>
+                    <button onClick={backgroundColorHandler}>배경색 / 블랙 or 화이트</button>
+                    </div>
                 <button className='back'><Link href='/'>홈으로 나가기</Link></button>
             </div>
             
@@ -44,8 +50,8 @@ div.setting{
     display:flex;
     flex-direction:column;
     background-color:#ebebeb;
-    width:200px;
-    padding:1rem 1rem 5rem;
+    width:15rem; 
+    padding:1rem 1rem 6rem;
     position:absolute;
     border:1px solid #000;
     top:50%;
@@ -84,7 +90,7 @@ div.setting{
 
 const SumbitBtn = styles.button`
 position:absolute;
-bottom:30%;
+bottom:25%;
 left:50%;
 transform:translate(-50%, 50%);
 border:none;

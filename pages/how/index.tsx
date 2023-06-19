@@ -16,15 +16,15 @@ const HowToGame = ()=>{
 
 export default HowToGame;
 
-const GameManual = styles.div`
+const GameManual = styles.section`
 display:flex;
 flex-direction:column;
 justify-content:center;
 text-align:center;
-
+padding-top:10rem;
     div{
         background-color:rgba(255,255,255,0.5);
-        width:50%;
+        width:80%;
         margin:0 auto;
         padding:3rem;
         ol{ 

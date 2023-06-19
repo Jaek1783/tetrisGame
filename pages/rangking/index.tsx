@@ -28,7 +28,7 @@ const AllData = (e)=>{
     setToggle(true);
 
 }
-return<div>
+return<SearchContainer>
     <FormStyle onSubmit={SortBtnHandler}>
         <div>
             <input type="text" name="Sort" id="nameSort" ref={name}/>
@@ -37,10 +37,13 @@ return<div>
         <button onClick={AllData}>전체보기</button>
     </FormStyle>
     <DurationFilterComponent sortData = {toggle ? dbData: rankData}/>
-</div>
+</SearchContainer>
 };
 export default RangkingPage;
 
+const SearchContainer = styles.section`
+padding-top:10rem;
+`;
 const FormStyle = styles.form`
 display:flex;
 justify-content:center;

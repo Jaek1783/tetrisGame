@@ -17,7 +17,7 @@ const TetrisPage = ()=>{
     const [togle, setTogle] = useState<boolean>(true);
     const [rangkBtn, setRangkBtn] = useState<boolean>(false);
     const [btn, setBtn] = useState('게임시작')
-
+    const [backColor, setBackColor] = useState(true);
     const buttonRef = useRef(null);
     const rangkingRef = useRef(null);
     const playground = useRef(null);
@@ -260,7 +260,7 @@ const dropBlock = ()=>{
     },10);
 }
 
-    return <section className='play'>
+    return <GameContainer>
       <GameRangking
       setName={setName}
       rangkingButtonHandler={rangkingButtonHandler}
@@ -273,7 +273,7 @@ const dropBlock = ()=>{
             rangkingRef={rangkingRef}
             btn={btn}
             />
-            <PlayGroundStyle ref={playground} btn={btn}>
+            <PlayGroundStyle ref={playground} btn={btn} backColor={backColor}>
                 <GameStartBtn ref={buttonRef} onClick={buttonHandler}>{btn}</GameStartBtn>
                 <Blocks 
                 num={num}
@@ -288,10 +288,12 @@ const dropBlock = ()=>{
                 speedButtonUpHandler={speedButtonUpHandler}
                 speedButtonDownHandler={speedButtonDownHandler}
                 reverseDuration={reverseDuration}
+                backColor = {backColor}
+                setBackColor = {setBackColor}
                 />
             </PlayGroundStyle>
         </div>
-    </section>
+    </GameContainer>
 }
 
 export default TetrisPage;
@@ -300,7 +302,7 @@ const PlayGroundStyle = styles.div`
 border : 1px solid #000;
 padding:.5rem;
 position:relative;
-background-color:#fff;
+background-color: ${props => props.backColor === true ? '#fff':'#1e1e1e'};
  .board{
     ul{
         display:flex;
@@ -308,13 +310,22 @@ background-color:#fff;
     li{
         width:2rem;
         height:2rem;
-        outline : .1px solid #ccc;
+        outline : ${props => props.backColor === true ? '.2px solid #ccc':'.2px solid #fff'};
         background-color:${props=>
           props.btn === '다시시작' ? '#333':''
           }
       }
 `;
-
+const GameContainer = styles.section`
+display:flex;
+justify-content: center;
+align-items: center;
+background-color: rgba(255,255,255,0.5);
+width:50%;
+margin:0 auto;
+padding:2rem;
+padding-top:10rem;
+`;
 const GameStartBtn = styles.button`
 position:absolute;
 top:40%;

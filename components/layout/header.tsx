@@ -19,11 +19,9 @@ const NavComponent = ()=>{
 export default NavComponent;
 
 const HeaderStyles = styles.header`
-h1{
-    color:#fff;
-}
+
+background-color:rgba(255,255,255,0.9);
 padding:1rem;
-    // background-color:#37cef0;
         nav{
             ul{
                 display:flex;
@@ -31,7 +29,6 @@ padding:1rem;
                 li{
                     font-size:1.5rem;
                     font-weight:bold;
-                    color:#fff;
                     padding:.5rem;
                     margin:0 1rem;
                 }
