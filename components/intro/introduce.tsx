@@ -36,6 +36,7 @@ align-items:center;
     background: no-repeat top url('/images/tetris-movie.png');
     background-size:contain;
     justify-content:start;
+    height:auto;
 }
 `;
 

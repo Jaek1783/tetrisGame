@@ -322,9 +322,12 @@ justify-content: center;
 align-items: center;
 background-color: rgba(255,255,255,0.5);
 width:50%;
+height:70vh;
 margin:0 auto;
 padding:2rem;
-padding-top:10rem;
+@media screen and (max-width:500px){
+  height:80vh;
+}
 `;
 const GameStartBtn = styles.button`
 position:absolute;
