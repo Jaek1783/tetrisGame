@@ -59,4 +59,18 @@ padding:1rem;
         padding:10px;
         border-radius:15px;
     }
+@media screen and (max-width:780px){
+    padding:1rem;
+        input{
+            margin-right:.5rem;
+            padding:8px;
+            font-size:1rem;
+        }
+        button{
+            border:1px solid #000;
+            margin-right:1rem;
+            padding:10px;
+            border-radius:15px;
+        }
+}
 `;

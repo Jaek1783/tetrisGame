@@ -32,7 +32,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-@media screen and (max-width:500px){
+@media screen and (max-width:780px){
     background: no-repeat top url('/images/tetris-movie.png');
     background-size:contain;
     justify-content:start;
@@ -57,7 +57,7 @@ const ButtonContainer = styles.div`
 
 
 const IntroStyles = styles.ul`
-width:40%;
+width:80%;
 text-align:center;
 animation: down 2s ease-in-out;
 background-color:#fff;
@@ -85,6 +85,18 @@ margin-top:10rem;
         }
     }
 
+    @media screen and (min-width:501px) and (max-width:780px){
+        width:80%;
+        padding:1rem 0;
+        dl{
+            dt{
+                font-size:1.2rem;
+            }
+            dd{
+                font-size:1.2rem;
+            }
+        }  
+    }
     @media screen and (max-width:500px){
         width:80%;
         padding:1rem 0;

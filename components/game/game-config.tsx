@@ -39,7 +39,7 @@ background-color: rgba(0,0,0,0.5);
 position:absolute;
 top:0;
 left:0;
-height:41rem;
+height:100%;
 z-index:99;
     span.title{
         padding-bottom:1rem;

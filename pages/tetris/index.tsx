@@ -304,17 +304,24 @@ padding:.5rem;
 position:relative;
 background-color: ${props => props.backColor === true ? '#fff':'#1e1e1e'};
  .board{
-    ul{
-        display:flex;
-    }
-    li{
-        width:2rem;
-        height:2rem;
-        outline : ${props => props.backColor === true ? '.2px solid #ccc':'.2px solid #fff'};
-        background-color:${props=>
-          props.btn === '다시시작' ? '#333':''
-          }
+      ul{
+          display:flex;
       }
+      li{
+          width:2rem;
+          height:2rem;
+          outline : ${props => props.backColor === true ? '.2px solid #ccc':'.2px solid #fff'};
+          background-color:${props => props.btn === '다시시작' ? '#333':''}
+        }
+  }
+  @media screen and (max-width:500px){
+    .board{
+      li{
+        width:1.5rem;
+        height:1.5rem;
+      }
+    }
+  }    
 `;
 const GameContainer = styles.section`
 display:flex;
@@ -326,7 +333,7 @@ height:70vh;
 margin:0 auto;
 padding:2rem;
 @media screen and (max-width:500px){
-  height:80vh;
+  height:75vh;
 }
 `;
 const GameStartBtn = styles.button`

@@ -28,6 +28,7 @@ const RankDataStyle =styles.section`
         border-bottom:1px solid;
         text-align:left;
         padding:.5rem;
+        font-size:1rem;
         dl{
             display:flex;
             dt,dd{
@@ -41,4 +42,14 @@ const RankDataStyle =styles.section`
         background-color: #6363f1;
         color:#fff;
     }
+@media screen and (max-width:780px){
+    li{
+        width:90%;
+        padding:.5rem;
+        font-size:.7rem;
+    }
+    li:nth-child(1),li:nth-child(2),li:nth-child(3){
+        font-size:.8rem;
+    }
+}
 `;
